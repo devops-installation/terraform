@@ -6,30 +6,46 @@ provider "aws" {
 variable "Envirnoment" {
   description = "deployment Envirnment"
 }
+#we will use type = string in var in list format for multiple uses like "VPC and SUBNATE"
+# variable "cidr_block" {
+#   description = "cidr block for VPC and SUBNATE"
+#   type = list(string)
+# }
 
-variable "vpc_cidr_block" {
-  description = "vpc cidr block" 
-  default = "10.0.1.0/16" # this will use as default var if value not spec in var file 
+# var type = object
+variable "cidr_blocks" {
+  description = "cidr block for VPC and SUBNATE"
+  type = list(object({
+     cidr_block = string
+     name = string
+  }))
 }
+
+# variable "vpc_cidr_block" {
+#   description = "vpc cidr block" 
+#   default = "10.0.1.0/16" # this will use as default var if value not spec in var file 
+# }
 resource "aws_vpc" "rh-vpc" {
   # cidr_block = "10.0.0.0/16"
-  cidr_block = var.vpc_cidr_block
+  # cidr_block = var.vpc_cidr_block
+  cidr_block = var.cidr_blocks[0].cidr_block
   tags = {
-    Name = "RH-VPC"
+    Name = var.cidr_blocks[0].name
     Envirnoment = var.Envirnoment
   }
 }
-variable "subnate_cidr_block" {
-  description = "subnate cidr block"
-  default = "10.0.11.0/24"
-}
+# variable "subnate_cidr_block" {
+#   description = "subnate cidr block"
+#   default = "10.0.11.0/24"
+# }
 resource "aws_subnet" "pub-subnet" {
   vpc_id = aws_vpc.rh-vpc.id
   # cidr_block = "10.0.10.0/24"
-  cidr_block = var.subnate_cidr_block
+  # cidr_block = var.subnate_cidr_block
+  cidr_block = var.cidr_blocks[1].cidr_block
   availability_zone = "us-west-2a"
   tags = {
-    Name = "RH-PUB-subnet"
+    Name = var.cidr_blocks[1].name
     Envirnoment = var.Envirnoment
   }
 }
