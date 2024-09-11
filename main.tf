@@ -38,12 +38,16 @@ resource "aws_vpc" "rh-vpc" {
 #   description = "subnate cidr block"
 #   default = "10.0.11.0/24"
 # }
+variable "avail_zone1" {
+  
+}
 resource "aws_subnet" "pub-subnet" {
   vpc_id = aws_vpc.rh-vpc.id
   # cidr_block = "10.0.10.0/24"
   # cidr_block = var.subnate_cidr_block
   cidr_block = var.cidr_blocks[1].cidr_block
-  availability_zone = "us-west-2a"
+  #availability_zone = "us-west-2a"
+  availability_zone = var.avail_zone1
   tags = {
     Name = var.cidr_blocks[1].name
     Envirnoment = var.Envirnoment
