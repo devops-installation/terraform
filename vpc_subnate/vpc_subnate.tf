@@ -22,4 +22,20 @@ resource "aws_subnet" "RH_subnate-1" {
       Name = "${var.env_prefix}-subnate-1"
     }
 }
-
+#igw
+resource "aws_internet_gateway" "RH_igw" {
+  vpc_id = aws_vpc.RH-vpc.id
+  tags = {
+    Name = "${var.env_prefix}-igw"
+  }
+  
+}
+#rout table
+resource "aws_route_table" "RH_rout_table" {
+  vpc_id = aws_vpc.RH-vpc.id
+  route = {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.RH_igw.id
+      }
+  
+}
