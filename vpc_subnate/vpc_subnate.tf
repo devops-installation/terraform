@@ -49,7 +49,7 @@ resource "aws_internet_gateway" "RH_igw" {
 
 # default route table
 resource "aws_default_route_table" "RH_default_route_table" {
-  default_route_table_id = aws_vpc.RH-vpc.aws_default_route_table_id
+  default_route_table_id = "rtb-041ef4121b31bd99f"
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.RH_igw.id
