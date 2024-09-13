@@ -40,5 +40,9 @@ resource "aws_route_table" "RH_rout_table" {
   tags = {
     Name = "${var.env_prefix}-rout_table"
   }
-  
+}
+# rout table association
+resource "aws_route_table_association" "RH_a_rta_subnate" {
+  subnet_id = aws_subnet.RH_subnate-1
+  route_table_id = aws_route_table.RH_rout_table
 }
