@@ -47,16 +47,16 @@ resource "aws_route_table_association" "RH_a_rta_subnate" {
   route_table_id = aws_route_table.RH_rout_table.id
 }
 
-# # default route table
-# resource "aws_default_route_table" "RH_default_route_table" {
-#   default_route_table_id = aws_vpc.RH-vpc.aws_default_route_table_id
-#   route {
-#     cidr_block = "0.0.0.0/0"
-#     gateway_id = aws_internet_gateway.RH_igw.id
-#   }
-# }
-# # rout table association
-# resource "aws_route_table_association" "RH_a_rta_subnate" {
-#   subnet_id = aws_subnet.RH_subnate-1.id
-#   route_table_id = aws_default_route_table.RH_default_route_table.id
-# }
+# default route table
+resource "aws_default_route_table" "RH_default_route_table" {
+  default_route_table_id = aws_vpc.RH-vpc.aws_default_route_table_id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.RH_igw.id
+  }
+}
+# rout table association
+resource "aws_route_table_association" "RH_a_rta_subnate" {
+  subnet_id = aws_subnet.RH_subnate-1.id
+  route_table_id = aws_default_route_table.RH_default_route_table.id
+}
