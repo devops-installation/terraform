@@ -95,6 +95,7 @@ resource "aws_security_group" "RH_sg" {
     to_port = 0
     protocol = "-1" # any protocol
     cidr_blocks = [var.myip]
+    prefix_list_ids = []
   }
   tags = {
     Name = "${var.env_prefix}-sg-1"
