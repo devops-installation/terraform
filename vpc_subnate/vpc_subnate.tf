@@ -6,6 +6,7 @@ variable "vpc_cidr_block1" {}
 variable "sub_cidr_block1" {}
 variable "env_prefix" {}
 variable "az" {}
+variable "myip" {}
 # VPC Resource
 resource "aws_vpc" "RH-vpc" {
   cidr_block = var.vpc_cidr_block1
@@ -70,4 +71,32 @@ resource "aws_default_route_table" "RH_default_route_table" {
 resource "aws_route_table_association" "RH_a_rta_subnate" {
   subnet_id      = aws_subnet.RH_subnate-1.id
   route_table_id = aws_default_route_table.RH_default_route_table.id
+}
+# security group
+resource "aws_security_group" "RH_sg" {
+  name        = "${var.env_prefix}-sg"
+  description = "Allow inbound traffic on port 22 and 80"
+  vpc_id      = aws_vpc.RH-vpc.id
+
+  ingress {
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    from_port = 8080
+    to_port = 8080
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  egress {
+    from_port = 0 # any port 0
+    to_port = 0
+    protocol = "-1" # any protocol
+    cidr_blocks = [var.myip]
+  }
+  tags = {
+    Name = "${var.env_prefix}-sg-1"
+  }
 }
