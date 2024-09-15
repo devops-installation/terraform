@@ -7,6 +7,9 @@ variable "sub_cidr_block1" {}
 variable "env_prefix" {}
 variable "az" {}
 variable "myip" {}
+variable "server-key" {}
+variable "instance_type" {}
+
 # VPC Resource
 resource "aws_vpc" "RH-vpc" {
   cidr_block = var.vpc_cidr_block1
@@ -117,14 +120,21 @@ data "aws_ami" "RH-FE-ubuntu" {
 output "aws_ami_id" {
   value = data.aws_ami.RH-FE-ubuntu.id
 }
-# # EC2 instance 
-# resource "aws_instance" "RH-FE" {
-#   ami = 
-#   instance_type = "t2.micro"
-#   subnet_id = aws_subnet.RH_subnate-1
-
-
+# EC2 instance 
+resource "aws_instance" "RH-FE" {
+  ami = data.aws_ami.RH-FE-ubuntu
+  instance_type = var.instance_type
+  availability_zone = var.az
+  subnet_id = aws_subnet.RH_subnate-1.id
   
-# }
+  key_name = var.server-key
+  vpc_security_group_ids = [aws_security_group.RH_sg.id]
+  associate_public_ip_address = true
+
+  tags = {
+    Name = "${var.env_prefix}-RH-FE-web"
+  }
+
+}
 
 
