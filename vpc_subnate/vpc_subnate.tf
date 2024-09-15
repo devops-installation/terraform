@@ -137,13 +137,7 @@ resource "aws_instance" "RH-FE" {
   vpc_security_group_ids = [aws_security_group.RH_sg.id]
   associate_public_ip_address = true
 
-  user_data = <<EOF
-                  #!/bin/bash
-                  sudo apt update
-                  sudo apt install -y nginx
-                  sudo systemctl start nginx
-                  sudo systemctl enable nginx
-              EOF
+  user_data = file("entry-script.sh")
 
   tags = {
     Name = "${var.env_prefix}-RH-FE-web"
