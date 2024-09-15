@@ -9,6 +9,7 @@ variable "az" {}
 variable "myip" {}
 variable "server-key" {}
 variable "instance_type" {}
+variable "key_location" {}
 
 # VPC Resource
 resource "aws_vpc" "RH-vpc" {
@@ -120,14 +121,19 @@ data "aws_ami" "RH-FE-ubuntu" {
 output "aws_ami_id" {
   value = data.aws_ami.RH-FE-ubuntu.id
 }
+# key pair
+resource "aws_key_pair" "ubuntu_key" {
+  key_name = "ubuntu-key"
+  public_key = file(var.key_location)
+}
+
 # EC2 instance 
 resource "aws_instance" "RH-FE" {
   ami = data.aws_ami.RH-FE-ubuntu.id
   instance_type = var.instance_type
   availability_zone = var.az
   subnet_id = aws_subnet.RH_subnate-1.id
-  
-  key_name = var.server-key
+  key_name = aws_key_pair.ubuntu_key.key_name
   vpc_security_group_ids = [aws_security_group.RH_sg.id]
   associate_public_ip_address = true
 
