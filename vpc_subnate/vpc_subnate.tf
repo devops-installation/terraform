@@ -146,7 +146,7 @@ resource "aws_instance" "RH-FE" {
                   sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
                   sudo chmod +x /usr/local/bin/docker-compose
                   sudo docker pull nginx:latest
-                  sudo docker run -d --name nginx -p 80:80 nginx
+                  sudo docker run -d --name nginx -p 8080:80 nginx
               EOF
 
   tags = {
