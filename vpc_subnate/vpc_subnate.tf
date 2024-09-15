@@ -113,7 +113,9 @@ data "aws_ami" "RH-FE-ubuntu" {
     name = "Virtualization"
     values = "hvm"
   }
-  
+}
+output "aws_ami_id" {
+  value = data.aws_ami.RH-FE-ubuntu.id
 }
 # # EC2 instance 
 # resource "aws_instance" "RH-FE" {
