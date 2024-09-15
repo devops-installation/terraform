@@ -124,7 +124,7 @@ output "aws_ami_id" {
 # key pair
 resource "aws_key_pair" "ubuntu_key" {
   key_name = "ubuntu-key"
-  public_key = file(var.key_location)
+  public_key = file(var.key_location) # terraform server key file 
 }
 
 # EC2 instance 
@@ -136,6 +136,29 @@ resource "aws_instance" "RH-FE" {
   key_name = aws_key_pair.ubuntu_key.key_name
   vpc_security_group_ids = [aws_security_group.RH_sg.id]
   associate_public_ip_address = true
+
+  user_data = <<EOF
+                  #!/bin/bash
+                  #!/bin/bash
+
+                  # Update package index
+                  sudo apt update
+
+                  # Install Docker
+                  sudo apt install -y docker.io
+                  sudo systemctl start docker
+                  sudo systemctl enable docker
+
+                  # Install Docker Compose (optional)
+                  sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+                  sudo chmod +x /usr/local/bin/docker-compose
+
+                  # Pull Nginx Docker image
+                  sudo docker pull nginx:latest
+
+                  # Run Nginx container
+                  sudo docker run -d --name nginx -p 80:80 nginx
+              EOF
 
   tags = {
     Name = "${var.env_prefix}-RH-FE-web"
