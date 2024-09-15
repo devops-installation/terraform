@@ -101,3 +101,28 @@ resource "aws_security_group" "RH_sg" {
     Name = "${var.env_prefix}-sg-1"
   }
 }
+# ami image
+data "aws_ami" "RH-FE-ubuntu" {
+  most_recent = true
+  owners = ["099720109477"]
+  filter {
+    name = name
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
+  }
+  filter {
+    name = "Virtualization"
+    values = "hvm"
+  }
+  
+}
+# # EC2 instance 
+# resource "aws_instance" "RH-FE" {
+#   ami = 
+#   instance_type = "t2.micro"
+#   subnet_id = aws_subnet.RH_subnate-1
+
+
+  
+# }
+
+
