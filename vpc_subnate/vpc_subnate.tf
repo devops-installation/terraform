@@ -111,7 +111,7 @@ data "aws_ami" "RH-FE-ubuntu" {
   }
   filter {
     name = "Virtualization"
-    values = "hvm"
+    values = ["hvm"]
   }
 }
 output "aws_ami_id" {
