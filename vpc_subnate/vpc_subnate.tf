@@ -122,7 +122,7 @@ output "aws_ami_id" {
 }
 # EC2 instance 
 resource "aws_instance" "RH-FE" {
-  ami = data.aws_ami.RH-FE-ubuntu
+  ami = data.aws_ami.RH-FE-ubuntu.id
   instance_type = var.instance_type
   availability_zone = var.az
   subnet_id = aws_subnet.RH_subnate-1.id
