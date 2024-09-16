@@ -5,20 +5,26 @@
 # sudo systemctl enable nginx
 #!/bin/bash
 
-# Update package index
+# Update the package index
+sudo apt update
+
+# Install Docker dependencies
+sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
+
+# Add the Docker repository
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+sudo add-apt-repository 'deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable'
+
+# Update the package index again
 sudo apt update
 
 # Install Docker
-sudo apt install -y docker.io
+sudo apt install -y docker-ce
+
+# Start Docker
 sudo systemctl start docker
+
+# Enable Docker to start at boot
 sudo systemctl enable docker
-
-# Install Docker Compose (optional)
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-
-# Pull Nginx Docker image
-sudo docker pull nginx:latest
-
-# Run Nginx container
 sudo docker run -d --name nginx -p 80:80 nginx
