@@ -128,6 +128,9 @@ data "aws_ami" "RH-FE-ubuntu" {
 output "aws_ami_id" {
   value = data.aws_ami.RH-FE-ubuntu.id
 }
+output "public_ip" {
+  value = aws_instance.RH-FE.id
+}
 # key pair
 resource "aws_key_pair" "ubuntu_key" {
   key_name = "ubuntu-key"
