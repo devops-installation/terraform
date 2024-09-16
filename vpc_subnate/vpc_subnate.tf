@@ -147,6 +147,16 @@ resource "aws_instance" "RH-FE" {
   vpc_security_group_ids = [aws_security_group.RH_sg.id]
   associate_public_ip_address = true
 
+/*  
+  user_data = <<EOF
+                #! /bin/bash
+                sudo yum update -y
+                sudo yum install -y httpd.x86_64
+                sudo service httpd start
+                sudo service httpd enable
+                echo "<h1>Deployed via Terraform</h1>" | sudo tee /var/www/html/index.html
+	    EOF
+*/
   #user_data = file("entry-script.sh")
   connection {
       type = "ssh"
@@ -160,7 +170,7 @@ resource "aws_instance" "RH-FE" {
   #transfer script.sh file to remote ec2-server to RUN script
   provisioner "file" {
     source = "entry-script.sh"
-    destination = "/home/ubuntu/entry-script.sh"
+    destination = "/home/ubuntu/"
   }
 
 
