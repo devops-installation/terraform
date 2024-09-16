@@ -137,7 +137,7 @@ resource "aws_instance" "RH-FE" {
   vpc_security_group_ids = [aws_security_group.RH_sg.id]
   associate_public_ip_address = true
 
-  user_data = file("entry-script.sh")
+  user_data = file("entry-script.sh") 
 
   tags = {
     Name = "${var.env_prefix}-RH-FE-web"
