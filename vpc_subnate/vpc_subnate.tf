@@ -156,6 +156,14 @@ resource "aws_instance" "RH-FE" {
 
 
   }  
+
+  #transfer script.sh file to remote ec2-server to RUN script
+  provisioner "file" {
+    source = "entry-script.sh"
+    destination = "/home/ubuntu/entry-script.sh"
+  }
+
+
   provisioner "remote-exec" {
     # inline = [ 
     #   "sudo apt-get update -y",
@@ -165,6 +173,10 @@ resource "aws_instance" "RH-FE" {
     #   "mkdir shubham"
     #  ]
     script = file("entry-script.sh")
+  }
+
+  provisioner "local-exec" {
+    command = "echo ${self.public_ip} > output.txt"
   }
 
   tags = {
