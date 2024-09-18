@@ -1,16 +1,7 @@
 provider "aws" {
     region = "us-west-2"
 }
-#variable
-variable "vpc_cidr_block1" {}
-variable "sub_cidr_block1" {}
-variable "env_prefix" {}
-variable "az" {}
-variable "myip" {}
-variable "server-key" {}
-variable "instance_type" {}
-variable "public_key_location" {}
-variable "private_key_location" {}
+
 
 # VPC Resource
 resource "aws_vpc" "RH-vpc" {
@@ -125,12 +116,7 @@ data "aws_ami" "RH-FE-ubuntu" {
     values = ["hvm"]
   }
 }
-output "aws_ami_id" {
-  value = data.aws_ami.RH-FE-ubuntu.id
-}
-output "public_ip_FE" {
-  value = aws_instance.RH-FE.public_ip
-}
+
 # key pair
 resource "aws_key_pair" "ubuntu_key" {
   key_name = "ubuntu-key"
