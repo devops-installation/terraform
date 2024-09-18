@@ -143,37 +143,37 @@ resource "aws_instance" "RH-FE" {
                 echo "<h1>Deployed via Terraform</h1>" | sudo tee /var/www/html/index.html
 	    EOF
 */
-  #user_data = file("entry-script.sh")
-  connection {
-      type = "ssh"
-      host = self.public_ip
-      user = "ubuntu"
-      private_key = file(var.private_key_location)
+  user_data = file("entry-script.sh")
+  # connection {
+  #     type = "ssh"
+  #     host = self.public_ip
+  #     user = "ubuntu"
+  #     private_key = file(var.private_key_location)
 
 
-  }  
+  # }  
 
-  #transfer script.sh file to remote ec2-server to RUN script
-  provisioner "file" {
-    source = "entry-script.sh"
-    destination = "/home/ubuntu/"
-  }
+  # # transfer script.sh file to remote ec2-server to RUN script
+  # provisioner "file" {
+  #   source = "entry-script.sh"
+  #   destination = "/home/ubuntu/"
+  # }
 
 
-  provisioner "remote-exec" {
-    # inline = [ 
-    #   "sudo apt-get update -y",
-    #   "sudo apt install -y nginx",
-    #   "sudo systemctl start nginx",
-    #   "sudo systemctl enable nginx",
-    #   "mkdir shubham"
-    #  ]
-    script = file("entry-script.sh")
-  }
+  # provisioner "remote-exec" {
+  #   inline = [ 
+  #     "sudo apt-get update -y",
+  #     "sudo apt install -y nginx",
+  #     "sudo systemctl start nginx",
+  #     "sudo systemctl enable nginx",
+  #     "mkdir shubham"
+  #    ]
+  #   script = file("entry-script.sh")
+  # }
 
-  provisioner "local-exec" {
-    command = "echo ${self.public_ip} > output.txt"
-  }
+  # provisioner "local-exec" {
+  #   command = "echo ${self.public_ip} > output.txt"
+  # }
 
   tags = {
     Name = "${var.env_prefix}-RH-FE-web"
