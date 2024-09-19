@@ -12,7 +12,7 @@ resource "aws_vpc" "RH-vpc" {
 }
 # call module subnet
 module "RH-subnet" {
-  source = "../modules/subnet"
+  source = "./modules/subnet"
   subnet_cidr_block = var.sub_cidr_block1
   avail_zone = var.az
   env_prefix = var.env_prefix
