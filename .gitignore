@@ -5,4 +5,11 @@ terraform.tfstate
 terraform.tfstate.*
 
 # Add other files to ignore as needed
+**/.terraform/*
 
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# .tfvars files
+*.tfvars
