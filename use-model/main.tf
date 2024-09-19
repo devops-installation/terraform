@@ -22,7 +22,7 @@ resource "aws_vpc" "RH-vpc" {
 # }
 
 module "RH-subnet" {
-  source = "/modules/subnet"  # Correct path based on your file structure
+  source = "modules/subnet"  # Correct path based on your file structure
   subnet_cidr_block = var.sub_cidr_block1
   avail_zone        = var.az
   env_prefix        = var.env_prefix
