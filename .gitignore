@@ -8,8 +8,6 @@ terraform.tfstate.*
 **/.terraform/*
 
 # .tfstate files
-*.tfstate
-*.tfstate.*
 
 # .tfvars files
 *.tfvars
