@@ -11,7 +11,7 @@ resource "aws_vpc" "RH-vpc" {
   }
 }
 # call module subnet
-module "subnet" {
+module "RH-subnet" {
   source = "./modules/subnet"
   sub_cidr_block1 = var.sub_cidr_block1
   az = var.az
