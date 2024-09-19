@@ -11,24 +11,24 @@ resource "aws_vpc" "RH-vpc" {
   }
 }
 # call module subnet
-# module "RH-subnet" {
-#   source = "./modules/subnet"
-#   subnet_cidr_block = var.sub_cidr_block1
-#   avail_zone = var.az
-#   env_prefix = var.env_prefix
-#   vpc_id = aws_vpc.RH-vpc.id
-#   default_route_table_id = aws_vpc.RH-vpc.default_route_table_id
-
-# }
-
-module "RH-subnet" {
-  source = "modules/subnet"  # Correct path based on your file structure
-  subnet_cidr_block = var.sub_cidr_block1
-  avail_zone        = var.az
-  env_prefix        = var.env_prefix
-  vpc_id            = aws_vpc.RH-vpc.id
+module "subnet" {
+  source = "./modules/subnet"
+  sub_cidr_block1 = var.sub_cidr_block1
+  az = var.az
+  env_prefix = var.env_prefix
+  vpc_id = aws_vpc.RH-vpc.id
   default_route_table_id = aws_vpc.RH-vpc.default_route_table_id
+
 }
+
+# module "RH-subnet" {
+#   source = "./modules/subnet/"  # Correct path based on your file structure
+#   subnet_cidr_block = var.sub_cidr_block1
+#   avail_zone        = var.az
+#   env_prefix        = var.env_prefix
+#   vpc_id            = aws_vpc.RH-vpc.id
+#   default_route_table_id = aws_vpc.RH-vpc.default_route_table_id
+# }
 
 # Route Table Association
 resource "aws_route_table_association" "RH_a_rta_subnate" {
