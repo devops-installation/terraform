@@ -33,8 +33,9 @@ module "RH-subnet" {
 # Route Table Association
 resource "aws_route_table_association" "RH_a_rta_subnate" {
   subnet_id      = module.RH-subnet.subnet.id
-  route_table_id = module.aws_default_route_table.RH_default_route_table.id
-}
+  route_table_id = module.RH_default_route_table.id
+  # route_table_id = aws_vpc.RH-vpc.default_route_table_id
+} 
 # security group
 resource "aws_security_group" "RH_sg" {
   name        = "${var.env_prefix}-sg"
