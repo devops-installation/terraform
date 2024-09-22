@@ -10,8 +10,9 @@ module "vpc" {
   public_subnet_tags = { 
     Name = "${var.env_prefix}-pub-sub-1"
     }
-  enable_nat_gateway = true
-  enable_vpn_gateway = true
+ # 
+#   enable_nat_gateway = true
+#   enable_vpn_gateway = true
 
   tags = {
    Name = "${var.env_prefix}-vpc"
