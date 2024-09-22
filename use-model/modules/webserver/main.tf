@@ -77,4 +77,4 @@ resource "aws_instance" "RH-FE" {
   tags = {
     Name = "${var.env_prefix}-RH-FE-web"
   }
-}
+}   
