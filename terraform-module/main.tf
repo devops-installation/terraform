@@ -17,7 +17,7 @@ module "vpc" {
 }
 
 module "webserver" {
-  source = "./use-model/modules/webserver"
+  source = "./webserver"
   env_prefix = var.env_prefix
   vpc_id = module.vpc.vpc_id
   myip = var.myip
