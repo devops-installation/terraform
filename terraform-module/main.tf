@@ -7,7 +7,9 @@ module "vpc" {
   azs             = [var.az]
 #   private_subnets = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
   public_subnets  = [var.sub_cidr_block1]
-  public_subnet_tags = { Name = "${env_prefix}-pub-sub-1"}
+  public_subnet_tags = { 
+    Name = "${var.env_prefix}-pub-sub-1"
+    }
   enable_nat_gateway = true
   enable_vpn_gateway = true
 
