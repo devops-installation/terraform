@@ -12,10 +12,16 @@ data "aws_ami" "os" {
 #     key_name   = "org-key"
 #     public_key = 
 # }
+resource "aws_ebs_volume" "ec2_vol" {
+    size = 10
+    availability_zone = "us-west-2a"  
+}
 resource "aws_instance" "ec2" {
     ami = data.aws_ami.os.id
     instance_type = "t2.micro"
     key_name = "org-key"
     associate_public_ip_address = true
+    availability_zone = "us-west-2a"
 
 }
+
