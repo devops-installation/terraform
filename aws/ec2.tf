@@ -7,14 +7,15 @@ data "aws_ami" "os" {
     }
   
 }
-
-resource "aws_key_pair" "org-key" {
-    key_name   = "org-key"
-}
+# # this conf provide you mannual key 
+# resource "aws_key_pair" "org-key" {
+#     key_name   = "org-key"
+#     public_key = 
+# }
 resource "aws_instance" "ec2" {
     ami = data.aws_ami.os.id
     instance_type = "t2.micro"
-    key_name = aws_key_pair.org-key.key_name
+    key_name = "org-key"
     associate_public_ip_address = true
 
 }
