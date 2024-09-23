@@ -46,10 +46,6 @@ module "webserver" {
   subnet_id = module.RH-subnet.subnet.id
   az = var.az
   instance_type = var.instance_type
-
-
-
-
 }
 
 

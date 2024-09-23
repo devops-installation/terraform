@@ -1,3 +1,10 @@
+terraform {
+  # Configure the AWS Provider
+  required_version = ">= 0.12"
+  backend "s3" {
+    bucket = "my-tf-state-bucket" 
+  }
+}
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
@@ -10,9 +17,9 @@ module "vpc" {
   public_subnet_tags = { 
     Name = "${var.env_prefix}-pub-sub-1"
     }
- # 
-#   enable_nat_gateway = true
-#   enable_vpn_gateway = true
+ # diasable service that we didnt want in module
+   enable_nat_gateway = false
+   enable_vpn_gateway = false
 
   tags = {
    Name = "${var.env_prefix}-vpc"
