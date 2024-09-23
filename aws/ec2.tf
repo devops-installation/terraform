@@ -14,7 +14,7 @@ data "aws_ami" "os" {
 # }
 resource "aws_ebs_volume" "ec2_vol" {
     size = 10
-    availability_zone = "us-west-2a"  
+    availability_zone = aws_instance.ec2.availability_zone 
 }
 resource "aws_instance" "ec2" {
     ami = data.aws_ami.os.id
