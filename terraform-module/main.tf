@@ -2,7 +2,8 @@ terraform {
   # Configure the AWS Provider
   required_version = ">= 0.12"
   backend "s3" {
-    bucket = "my-tf-state-bucket" 
+    bucket = "rh-tf-state-bucket" 
+    key = "terraform/state.tfstate"
   }
 }
 module "vpc" {
