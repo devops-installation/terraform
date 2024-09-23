@@ -6,7 +6,7 @@ output "ec2_details" {
         az           = aws_instance.ec2.availability_zone
         ami          = aws_instance.ec2.ami
         key          = aws_instance.ec2.key_name
-        cpu_cores    = aws_instance.ec2.cpu_core_count
+        cpu_cores    = aws_instance.ec2.core_count
         volume_size  = aws_instance.ec2.root_block_device[0].volume_size
     }
 }
