@@ -4,8 +4,14 @@ terraform {
   backend "s3" {
     bucket = "rh-tf-state-bucket" 
     key = "terraform/state.tfstate"
+    region = "us-west-2" 
   }
 }
+
+provider "aws" {
+    region = "us-west-2"
+}
+
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
