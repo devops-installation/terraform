@@ -142,7 +142,7 @@ resource "aws_instance" "RH-FE" {
                 echo "<h1>Deployed via Terraform</h1>" | sudo tee /var/www/html/index.html
 	    EOF
 */
-  # user_data = file("entry-script.sh")
+#   user_data = file("entry-script.sh")
   connection {
       type = "ssh"
       host = aws_instance.RH-FE.public_ip

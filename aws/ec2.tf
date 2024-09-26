@@ -77,15 +77,18 @@ resource "aws_instance" "ec2" {
     subnet_id = aws_subnet.pub-sub.id
     associate_public_ip_address = true
     availability_zone = "us-west-2a"
-    user_data = <<EOF
-                #!/bin/bash
-                sudo apt update
-                sudo apt install -y nginx
-                sudo systemctl start nginx
-                sudo systemctl enable nginx
-	     EOF
 
-  tags = {
+    # user_data = <<EOF
+    #             #!/bin/bash
+    #             sudo apt update
+    #             sudo apt install -y nginx
+    #             sudo systemctl start nginx
+    #             sudo systemctl enable nginx
+	#      EOF
+
+    user_data = file("./entry-script.sh")
+
+   tags = {
     Name = "nginx-web-server"
   }
 }
