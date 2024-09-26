@@ -38,7 +38,7 @@ resource "aws_instance" "ec2" {
       type = "ssh"
       host = aws_instance.ec2.public_ip
       user = "ubuntu"
-      private_key = "/home/shubham/.ssh/id_rsa"
+      private_key = file("/home/shubham/.ssh/id_rsa")
     }
 
     provisioner "remote-exec" {
@@ -47,8 +47,7 @@ resource "aws_instance" "ec2" {
             "sudo systemctl start nginx",
             "sudo systemctl enable nginx",
             "mkdir shubham"
-         ]
-      
+         ]     
     }
 
    tags = {
