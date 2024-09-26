@@ -27,8 +27,8 @@ data "aws_ami" "os" {
 #     key_name   = "org-key"
 #     public_key = 
 # }
-resource "aws_security_group" "sg-nginx" {
-    name = "sg-nginx"
+resource "aws_security_group" "nginx-sg" {
+    name = "nginx-sg"
     description = "nginx sg "
     vpc_id = aws_vpc.my-vpc.id
     ingress {
