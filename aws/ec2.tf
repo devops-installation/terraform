@@ -79,16 +79,17 @@ resource "aws_instance" "ec2" {
     availability_zone = "us-west-2a"
     user_data = <<EOF
                 #!/bin/bash
-                #sudo apt update
+                sudo apt update
                 sudo apt install -y nginx
                 sudo systemctl start nginx
                 sudo systemctl enable nginx
-	    EOF
+	     EOF
 
-    tags = {
-      Name = "ec2"
-    }
+  tags = {
+    Name = "nginx-web-server"
+  }
 }
+
 resource "aws_volume_attachment" "ebs-disk1" {
     device_name = "/dev/sdh"
     volume_id = aws_ebs_volume.ec2_vol.id
