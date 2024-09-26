@@ -1,25 +1,4 @@
 
-
-resource "aws_vpc" "my-vpc" {
-    cidr_block = "10.0.0.0/16"
-    tags = {
-        Name = "my-vpc"
-    }  
-}
-resource "aws_internet_gateway" "ngx-igw" {
-    vpc_id = aws_vpc.my-vpc.id
-    tags = {
-      Name = "ngx-igw"
-    }
-  
-}
-resource "aws_subnet" "pub-sub" {
-    cidr_block = "10.0.1.0/24"
-    vpc_id = aws_vpc.my-vpc.id
-    availability_zone = "us-west-2a"
-  
-}
-
 data "aws_ami" "os" {
     most_recent      = true
     owners           = ["amazon"]
@@ -34,41 +13,8 @@ data "aws_ami" "os" {
 #     key_name   = "org-key"
 #     public_key = 
 # }
-resource "aws_security_group" "nginx-sg" {
-    name = "nginx-sg"
-    description = "nginx sg "
-    vpc_id = aws_vpc.my-vpc.id
-    ingress {
-        from_port = 22
-        to_port   = 22
-        protocol = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
-    }
-    ingress {
-        from_port = 80
-        to_port = 80
-        protocol = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
-    }
-    ingress {
-        from_port = 8080
-        to_port = 8080
-        protocol = "tcp"
-        cidr_blocks = ["0.0.0.0/0"]
-    }
-    egress {
-        from_port = 0
-        to_port = 0
-        protocol = "-1"
-        cidr_blocks = ["0.0.0.0/0"]
-        ipv6_cidr_blocks = ["::/0"]
-    }
-  
-}
-resource "aws_ebs_volume" "ec2_vol" {
-    size = 10
-    availability_zone = aws_instance.ec2.availability_zone 
-}
+
+
 resource "aws_instance" "ec2" {
     ami = data.aws_ami.os.id
     instance_type = "t2.micro"
@@ -91,11 +37,4 @@ resource "aws_instance" "ec2" {
    tags = {
     Name = "nginx-web-server"
   }
-}
-
-resource "aws_volume_attachment" "ebs-disk1" {
-    device_name = "/dev/sdh"
-    volume_id = aws_ebs_volume.ec2_vol.id
-    instance_id = aws_instance.ec2.id
- 
 }
