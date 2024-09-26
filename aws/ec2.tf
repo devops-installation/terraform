@@ -73,7 +73,7 @@ resource "aws_instance" "ec2" {
     ami = data.aws_ami.os.id
     instance_type = "t2.micro"
     key_name = "org-key"
-    vpc_security_group_ids = [aws_vpc.my-vpc.id]
+    vpc_security_group_ids = [aws_security_group.nginx-sg.id]
     subnet_id = aws_subnet.pub-sub.id
     associate_public_ip_address = true
     availability_zone = "us-west-2a"
