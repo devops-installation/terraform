@@ -86,7 +86,7 @@ resource "aws_instance" "ec2" {
     #             sudo systemctl enable nginx
 	#      EOF
 
-    user_data = file("./entry-script.sh")
+    user_data = file("entry-script.sh")
 
    tags = {
     Name = "nginx-web-server"
