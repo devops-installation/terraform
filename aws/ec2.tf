@@ -46,6 +46,9 @@ resource "aws_instance" "ec2" {
             "sudo apt install -y nginx",
             "sudo systemctl start nginx",
             "sudo systemctl enable nginx",
+            "sudo mkdir -p /mnt/ebs_volume",
+            "sudo mkfs -t ext4 /dev/xvdh",
+            "sudo mount /dev/xvdh /mnt/ebs_volume",
             "mkdir shubham"
          ]     
     }
