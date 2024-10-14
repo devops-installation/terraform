@@ -4,13 +4,14 @@
 #   display_name = "SA-vm"
 # }
 resource "google_compute_instance" "rh-staging" {
-    name = "rh-staging"
+    name = "rh-stage-master"
     machine_type = "e2-medium"
     zone = "us-central1-a"
-    tags = ["foo", "bar"]
+    tags = ["foo", "bar"] #network tag
+    
     boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-11"  # Choose the boot image
+      image = "ubuntu-os-cloud/ubuntu-2404-lts"  # Choose the boot image
       size = 23
       }
     }
@@ -28,6 +29,7 @@ resource "google_compute_instance" "rh-staging" {
     #     sudo apt-get install -y apache2
     #  EOT
 }
+
 #     service_account {
 #     email  = google_service_account.default.email
 #     scopes = ["cloud-platform"]  # Define the scopes the VM has access to
