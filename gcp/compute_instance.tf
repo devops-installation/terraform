@@ -1,4 +1,4 @@
-resource "google_service_account" "620306703113-compute@developer.gserviceaccount.com" {
+resource "google_service_account" "default" {
      # The unique ID for the service account
   account_id = "2520f7d965511976b9e442b2560731371fa79cb2" 
   display_name = "SA-vm"
