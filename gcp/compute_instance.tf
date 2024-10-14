@@ -25,7 +25,7 @@ resource "google_compute_instance" "rh-staging" {
         #!/bin/bash
         sudo apt-get update
         sudo apt-get install -y apache2
-    EOT
+     EOT
 }
 #     service_account {
 #     email  = google_service_account.default.email
