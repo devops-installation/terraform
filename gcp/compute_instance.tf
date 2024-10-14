@@ -21,7 +21,7 @@ resource "google_compute_instance" "rh-staging" {
         network       = "default"   # Replace with your VPC network
         access_config {}            # Allows external (public) IP access
     }
-     metadata_startup_script = file("entry_script.sh")
+     metadata_startup_script = file("entry-script.sh")
     #  metadata_startup_script = <<-EOT
     #     #!/bin/bash
     #     sudo apt-get update
