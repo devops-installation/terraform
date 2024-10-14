@@ -4,7 +4,7 @@
 #   display_name = "SA-vm"
 # }
 resource "google_compute_instance" "rh-staging" {
-    name = "Rh-staging"
+    name = "rh-staging"
     machine_type = "e2-medium"
     zone = "us-central1-a"
     tags = ["foo", "bar"]
