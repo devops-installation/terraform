@@ -8,7 +8,7 @@ resource "google_compute_instance" "rh-staging" {
     machine_type = "e2-medium"
     zone = "us-central1-a"
     tags = ["foo", "bar"] #network tag
-    hostname     = "rh-staging-master"
+    # hostname     = "rh-staging-master"
     
     boot_disk {
     initialize_params {
