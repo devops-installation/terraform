@@ -8,11 +8,12 @@ resource "google_compute_instance" "rh-staging" {
     machine_type = "e2-medium"
     zone = "us-central1-a"
     tags = ["foo", "bar"] #network tag
+    hostname     = "rh-staging-master"
     
     boot_disk {
     initialize_params {
-      image = "ubuntu-os-cloud/ubuntu-2404-lts-amd64"  # Choose the boot image
-      size = 23
+      image = "ubuntu-os-cloud/ubuntu-2404-lts-amd64"  # boot image ubuntu 24.04 lts
+      size = 20
       }
     }
     # scratch_disk {
@@ -22,13 +23,31 @@ resource "google_compute_instance" "rh-staging" {
         network       = "default"   # Replace with your VPC network
         access_config {}            # Allows external (public) IP access
     }
-     metadata_startup_script = file("entry-script.sh")
+   #  metadata_startup_script = file("entry-script.sh")
+     
+     metadata {
+        ssh-keys = "ubuntu: file("~/.ssh/id_rsa.pub")"
+     }
+  provisioner "remote-exec" {
+    connection {
+      type        = "ssh"
+      user        = "ubuntu"                     # Use the 'ubuntu' user for connection
+      private_key = file("~/.ssh/id_rsa")        # Path to your private key
+      host        = google_compute_instance.rh-staging.network_interface[0].access_config[0].nat_ip  # Get the VM public IP
+    }
+
+    inline = [
+      "sudo apt-get update",
+      "sudo apt-get install -y apache2"
+    ]
+  }
     #  metadata_startup_script = <<-EOT
     #     #!/bin/bash
     #     sudo apt-get update
     #     sudo apt-get install -y apache2
     #  EOT
 }
+
 
 #     service_account {
 #     email  = google_service_account.default.email

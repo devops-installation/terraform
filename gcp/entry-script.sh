@@ -61,3 +61,4 @@ sudo chown "$(id -u)":"$(id -g)" "$HOME"/.kube/config
 kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.26.0/manifests/calico.yaml
 
 kubeadm token create --print-join-command
+git clone https://github.com/devops-installation/kubernetes.git
