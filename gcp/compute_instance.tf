@@ -11,7 +11,7 @@ resource "google_compute_instance" "rh-staging" {
     
     boot_disk {
     initialize_params {
-      image = "ubuntu-os-cloud/ubuntu-2404-lts"  # Choose the boot image
+      image = "ubuntu-os-cloud/ubuntu-2404-lts-amd64"  # Choose the boot image
       size = 23
       }
     }
