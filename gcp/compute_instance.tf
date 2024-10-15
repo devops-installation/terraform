@@ -25,7 +25,7 @@ resource "google_compute_instance" "rh-staging" {
     }
    #  metadata_startup_script = file("entry-script.sh")
      
-     metadata {
+     metadata = {
         ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
      }
   provisioner "remote-exec" {
