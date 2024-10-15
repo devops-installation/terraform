@@ -35,7 +35,9 @@ resource "google_compute_instance" "rh-staging" {
       private_key = file("~/.ssh/id_rsa")        # Path to your private key
       host        = google_compute_instance.rh-staging.network_interface[0].access_config[0].nat_ip  # Get the VM public IP
     }
-
+    # Use the entry-script.sh file for inline execution
+    # script = "${file("${path.module}/entry-script.sh")}"  # Read the script from the current module path
+    # OR
     inline = [
       "sudo apt-get update",
       "sudo apt-get install -y apache2"
