@@ -37,8 +37,8 @@ resource "google_compute_instance" "rh-staging" {
      provisioner "remote-exec" {
     
     # Use the entry-script.sh file for inline execution
-    script = "${file("entry-script.sh")}"  # Read the script from the current module path
-    # OR
+    script = file("entry-script.sh")  # Read the script from the current module path
+    # #OR
     #  inline = [
     #   "sudo apt-get update",
     #   "sudo apt-get install -y apache2"
