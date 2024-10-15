@@ -37,12 +37,12 @@ resource "google_compute_instance" "rh-staging" {
      provisioner "remote-exec" {
     
     # Use the entry-script.sh file for inline execution
-    # script = "${file("${path.module}/entry-script.sh")}"  # Read the script from the current module path
+    script = "${file("entry-script.sh")}"  # Read the script from the current module path
     # OR
-     inline = [
-      "sudo apt-get update",
-      "sudo apt-get install -y apache2"
-    ]
+    #  inline = [
+    #   "sudo apt-get update",
+    #   "sudo apt-get install -y apache2"
+    # ]
   }
     #  metadata_startup_script = <<-EOT
     #     #!/bin/bash
