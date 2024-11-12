@@ -58,7 +58,7 @@ resource "aws_key_pair" "freedebt-key" {
     public_key = file(var.public_key_location)
 }
 resource "aws_instance" "freedebt-app" {
-    ami = data.aws_ami.ubuntu-os
+    ami = data.aws_ami.ubuntu-os.id
     instance_type = "t2.micro"
     key_name = aws_key_pair.freedebt-key.key_name
     vpc_security_group_ids = [aws_security_group.freedebt-sg.id]
