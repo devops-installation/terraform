@@ -23,6 +23,7 @@ resource "aws_instance" "ec2" {
     subnet_id = aws_subnet.pub-sub.id
     associate_public_ip_address = true
     availability_zone = "us-west-2a"
+    count = "4"
 
     # user_data = <<EOF
     #             #!/bin/bash

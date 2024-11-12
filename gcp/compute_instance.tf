@@ -3,7 +3,7 @@
 #   account_id = "2520f7d965511976b9e442b2560731371fa79cb2" 
 #   display_name = "SA-vm"
 # }
-resource "google_compute_instance" "rh-staging" {
+resource "google_compute_instance" "rh-staging-master" {
     name = "rh-stage-master"
     machine_type = "e2-medium"
     zone = "us-central1-a"
@@ -32,7 +32,7 @@ resource "google_compute_instance" "rh-staging" {
       type        = "ssh"
       user        = "ubuntu"                     # Use the 'ubuntu' user for connection
       private_key = file("~/.ssh/id_rsa")        # Path to your private key
-      host        = google_compute_instance.rh-staging.network_interface[0].access_config[0].nat_ip  # Get the VM public IP
+      host        = google_compute_instance.rh-staging-master.network_interface[0].access_config[0].nat_ip  # Get the VM public IP
     }
      provisioner "remote-exec" {
     
