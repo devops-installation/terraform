@@ -72,13 +72,13 @@ resource "aws_instance" "freedebt-app" {
         private_key = file(var.private_key_location)
     }
     provisioner "remote-exec" {
-        # script = file("./entry-script.sh")
-        inline = [
-            "sudo apt install -y nginx",
-            "sudo systemctl start nginx",
-            "sudo systemctl enable nginx",
-            "mkdir shubham"
-         ]
+        script = file("./entry-script.sh")
+        # inline = [
+        #     "sudo apt install -y nginx",
+        #     "sudo systemctl start nginx",
+        #     "sudo systemctl enable nginx",
+        #     "mkdir shubham"
+        #  ]
       
     }
     tags = {

@@ -161,11 +161,12 @@ resource "aws_instance" "RH-FE" {
 # Provisioner 
   provisioner "remote-exec" {
     inline = [ 
-      # #"sudo apt-get update -y",
+      "sudo apt-get update -y",
       "sudo apt install -y nginx",
       "sudo systemctl start nginx",
       "sudo systemctl enable nginx",
       "mkdir shubham"
+      ""
      ]
     # script = file("entry-script.sh")
    }
