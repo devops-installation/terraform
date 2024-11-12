@@ -64,6 +64,8 @@ resource "aws_instance" "freedebt-app" {
     vpc_security_group_ids = [aws_security_group.freedebt-sg.id]
     associate_public_ip_address = true
 
+    user_data = file("entry-script.sh")
+
     tags = {
         Name = "${var.name}-webserver"
     }
