@@ -65,17 +65,22 @@ resource "aws_instance" "freedebt-app" {
     associate_public_ip_address = true
 
   #  user_data = file("entry-script.sh")
+    connection {
+        type = "ssh"
+        host = aws_instance.freedebt-app.public_ip
+        user = "ubuntu"
+        private_key = file(var.private_key_location)
+    }
     provisioner "remote-exec" {
-        script = file("./entry-script.sh")
+        # script = file("./entry-script.sh")
+        inline = [
+            "sudo apt install -y nginx",
+            "sudo systemctl start nginx",
+            "sudo systemctl enable nginx",
+            "mkdir shubham"
+         ]
       
     }
-    connection {
-      type = "ssh"
-      host = self.public_ip
-      user = "ubuntu"
-      private_key = file(var.private_key_location)
-    }
-
     tags = {
         Name = "${var.name}-webserver"
     }
