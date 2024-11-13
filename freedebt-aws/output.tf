@@ -1,3 +1,3 @@
 output "public_ip_freedebt" {
-    value       = aws_instance.freedebt-app.public_ip 
+    value       = data.aws_eip.freedebt_eip.public_ip 
 }

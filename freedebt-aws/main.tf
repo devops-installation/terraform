@@ -101,6 +101,7 @@ resource "aws_instance" "freedebt-app" {
             
             # Step 6: Set latest Node.js version as default
             "nvm alias default node",
+            "git clone https://github.com/easesmith/freedebt-live.git",
             "mkdir shubham"
          ]
       
