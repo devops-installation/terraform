@@ -166,7 +166,6 @@ resource "aws_instance" "RH-FE" {
       "sudo systemctl start nginx",
       "sudo systemctl enable nginx",
       "mkdir shubham"
-      ""
      ]
     # script = file("entry-script.sh")
    }

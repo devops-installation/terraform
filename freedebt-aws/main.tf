@@ -1,6 +1,16 @@
 data "aws_vpc" "default" {
     default = true  
 }
+data "aws_eip" "freedebt_eip" {
+    filter {
+        name = "tag:Name"
+        values = ["freedebt"]
+    }
+}
+resource "aws_eip_association" "attach_freedebt_eip" {
+    instance_id = aws_instance.freedebt-app.id
+    allocation_id = data.aws_eip.freedebt_eip.id
+}
 
 data "aws_ami" "ubuntu-os" {
     most_recent = true
@@ -72,13 +82,27 @@ resource "aws_instance" "freedebt-app" {
         private_key = file(var.private_key_location)
     }
     provisioner "remote-exec" {
-        script = file("./entry-script.sh")
-        # inline = [
-        #     "sudo apt install -y nginx",
-        #     "sudo systemctl start nginx",
-        #     "sudo systemctl enable nginx",
-        #     "mkdir shubham"
-        #  ]
+        # script = file("entry-script.sh")
+        inline = [
+            "sudo apt install -y nginx",
+            "sudo systemctl start nginx",
+            "sudo systemctl enable nginx",
+            "curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash",
+            
+            # Step 3: Add NVM to shell profile (~/.bashrc)
+            "echo 'export NVM_DIR=\"$HOME/.nvm\"' >> ~/.bashrc",
+            "echo '[ -s \"$NVM_DIR/nvm.sh\" ] && \\. \"$NVM_DIR/nvm.sh\" # This loads nvm' >> ~/.bashrc",
+            
+            # Step 4: Reload the shell profile to apply changes
+            "source ~/.bashrc",
+            
+            # Step 5: Install latest version of Node.js using NVM
+            "nvm install node",
+            
+            # Step 6: Set latest Node.js version as default
+            "nvm alias default node",
+            "mkdir shubham"
+         ]
       
     }
     tags = {
