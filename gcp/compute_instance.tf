@@ -91,14 +91,14 @@ resource "google_compute_instance" "rh-staging-node" {
      provisioner "remote-exec" {
     
     # Use the entry-script.sh file for inline execution
-    #script = "/home/shubham/terraform/gcp/entry-script.sh"  # Read the script from the current module path
+    script = "/home/shubham/terraform/gcp/worker-node.sh"  # Read the script from the current module path
     # #OR
-      inline = [
-      "sudo apt-get update",
-      "git clone https://github.com/devops-installation/kubernetes.git",
-      "chmod -775 kubernetes/cluster-setup/k8.sh",
-      "sh kubernetes/cluster-setup/k8.sh"
-    ]
+    #   inline = [
+    #   "sudo apt-get update",
+    #   "git clone https://github.com/devops-installation/kubernetes.git",
+    #   "chmod -775 kubernetes/cluster-setup/k8.sh",
+    #   "sh kubernetes/cluster-setup/k8.sh"
+    # ]
   }
     #  metadata_startup_script = <<-EOT
     #     #!/bin/bash
