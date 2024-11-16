@@ -86,7 +86,7 @@ resource "google_compute_instance" "rh-staging-node" {
       type        = "ssh"
       user        = "ubuntu"                     # Use the 'ubuntu' user for connection
       private_key = file("~/.ssh/id_rsa")        # Path to your private key
-      host        = google_compute_instance.rh-staging-master.network_interface[0].access_config[0].nat_ip  # Get the VM public IP
+      host        = google_compute_instance.rh-staging-node.network_interface[0].access_config[0].nat_ip  # Get the VM public IP
     }
      provisioner "remote-exec" {
     
